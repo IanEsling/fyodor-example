@@ -4,7 +4,7 @@ import org.joda.time.LocalDate;
 import uk.org.fyodor.example.Car;
 import uk.org.fyodor.example.Manufacturer;
 import uk.org.fyodor.example.RDG;
-import uk.org.fyodor.range.Range;
+import uk.org.fyodor.jodatime.range.LocalDateRange;
 
 import java.math.BigDecimal;
 
@@ -17,7 +17,7 @@ public class CarBuilder {
     private String description = RDG.string(50).next();
     private String productCode = RDG.productCode().next();
     private Manufacturer manufacturer = RDG.value(Manufacturer.values()).next();
-    private LocalDate dateOfManufacture = localDate(Range.closed(now().minusYears(15), now().minusYears(3))).next();
+    private LocalDate dateOfManufacture = localDate(LocalDateRange.closed(now().minusYears(15), now().minusYears(3))).next();
     private BigDecimal price = RDG.bigDecimal(50000).next();
 //    private Engine engine = EngineBuilder.engineBuilder().build();
 

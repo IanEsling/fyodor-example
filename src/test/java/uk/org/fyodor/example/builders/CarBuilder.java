@@ -4,24 +4,27 @@ import org.joda.time.LocalDate;
 import uk.org.fyodor.example.Car;
 import uk.org.fyodor.example.Manufacturer;
 import uk.org.fyodor.example.RDG;
-import uk.org.fyodor.jodatime.range.LocalDateRange;
 
 import java.math.BigDecimal;
 
-import static org.joda.time.LocalDate.now;
+import static org.joda.time.Years.years;
+import static uk.org.fyodor.generators.RDG.*;
 import static uk.org.fyodor.jodatime.generators.RDG.localDate;
+import static uk.org.fyodor.jodatime.range.LocalDateRange.aged;
+import static uk.org.fyodor.range.Range.closed;
 
 public class CarBuilder {
 
-    private String name = RDG.string(15).next();
-    private String description = RDG.string(50).next();
+    private String name = string(15).next();
+    private String description = string(50).next();
     private String productCode = RDG.productCode().next();
-    private Manufacturer manufacturer = RDG.value(Manufacturer.values()).next();
-    private LocalDate dateOfManufacture = localDate(LocalDateRange.closed(now().minusYears(15), now().minusYears(3))).next();
-    private BigDecimal price = RDG.bigDecimal(50000).next();
+    private Manufacturer manufacturer = value(Manufacturer.values()).next();
+    private LocalDate dateOfManufacture = localDate(aged(closed(years(3), years(15)))).next();
+    private BigDecimal price = bigDecimal(50000).next();
 //    private Engine engine = EngineBuilder.engineBuilder().build();
 
-    private CarBuilder() {}
+    private CarBuilder() {
+    }
 
     public static CarBuilder builder() {
         return new CarBuilder();
